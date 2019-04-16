@@ -25,4 +25,10 @@ table.table.table-hover
         td = "#{order.quantity} / #{@wz.orders_wzs.find_by(order_id: order.id).quantity}"
         td = order.price
         td = date(order.delivery_date)
+    tr
+      td colspan="7"
+        span.wz-description
+          - if @wz.description.present?
+            | Opis:&nbsp;
+            = @wz.description
 br

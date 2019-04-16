@@ -21,7 +21,7 @@ a[href]:after {
 .search_tag {
   padding: 5px 10px;
   margin: 0 20px 0 0;
-  width: 235px;
+  width: 200px;
 }
 
 h2 span {
@@ -42,4 +42,17 @@ tbody.clickable tr {
     margin: 0;
     color: black;
   }
+}
+
+.edit-wz {
+  margin-right: 20px;
+}
+
+.save-wz {
+  margin-right: 20px;
+}
+
+.wz-description-field {
+  width: 100%;
+  padding: 5px 10px;
 }

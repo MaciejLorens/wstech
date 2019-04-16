@@ -32,6 +32,13 @@ class WzsController < ApplicationController
     render json: {}, status: 201
   end
 
+  def update
+    @wz = Wz.find(params[:id])
+    @wz.update(description: params[:description])
+
+    render json: {}, status: 200
+  end
+
   def destroy
     wz = Wz.find(params[:id])
 
@@ -60,4 +67,5 @@ class WzsController < ApplicationController
   def authentication
     redirect_to :root unless current_user.admin?
   end
+
 end

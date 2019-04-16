@@ -8,31 +8,41 @@ h2
   br
 
 - @wzs.each do |wz|
-  h3
-    = wz.number
-    .pull-right
-      = link_to 'Widok pojedynczy', wz_path(wz), class: 'btn btn-default'
-      - if current_user.admin?
-        = link_to 'Usuń', wz_path(wz), data: {confirm: 'Czy jesteś pewien?'}, method: :delete, class: 'btn btn-default remove-wz'
+  .wz data-wz-id=wz.id
+    h3
+      = wz.number
+      .pull-right
+        = link_to 'Edytuj opis', '#', class: 'btn btn-default edit-wz'
+        = link_to 'Zapisz opis', '#', class: 'btn btn-default save-wz hidden'
+        = link_to 'Widok pojedynczy', wz_path(wz), class: 'btn btn-default'
+        - if current_user.admin?
+          = link_to 'Usuń', wz_path(wz), data: {confirm: 'Czy jesteś pewien?'}, method: :delete, class: 'btn btn-default remove-wz'
 
-  table.table.table-hover
-    tr
-      th Numer zamówienia
-      th Opis
-      th Zamawiający
-      th Data zlecenia
-      th Ilość zamówiona / Ilość w WZ
-      th Cena
-      th Data realizacji
+    table.table.table-hover
+      tr
+        th Numer zamówienia
+        th Opis
+        th Zamawiający
+        th Data zlecenia
+        th Ilość zamówiona / Ilość w WZ
+        th Cena
+        th Data realizacji
 
-    tbody
-      - wz.orders.each do |order|
+      tbody
+        - wz.orders.each do |order|
+          tr
+            td = order.number
+            td = order.description
+            td = "#{order.user.first_name} #{order.user.last_name}"
+            td = date(order.created_at)
+            td = "#{order.quantity} / #{wz.orders_wzs.find_by(order_id: order.id).quantity}"
+            td = order.price
+            td = date(order.delivery_date)
         tr
-          td = order.number
-          td = order.description
-          td = "#{order.user.first_name} #{order.user.last_name}"
-          td = date(order.created_at)
-          td = "#{order.quantity} / #{wz.orders_wzs.find_by(order_id: order.id).quantity}"
-          td = order.price
-          td = date(order.delivery_date)
-  br
+          td colspan="7"
+            span.wz-description
+              - if wz.description.present?
+                | Opis:&nbsp;
+                = wz.description
+            = text_field_tag :wz_description, wz.description, class: 'hidden wz-description-field'
+    br
