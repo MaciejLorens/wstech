@@ -34,9 +34,7 @@ table.table.table-hover
       td
         - @furniture_order.resources.each_with_index do |resource, index|
           - if resource.image.present?
-            = link_to image_tag(resource.image(:thumb)), resource.image.url
-          - else
-            = link_to "[#{index}]", resource.link, target: '_blank'
+            = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
       td = date(@furniture_order.confirmation_date)
       td = date(@furniture_order.invoice_date)
       td = date(@furniture_order.delivery_date)
@@ -62,7 +60,8 @@ table.table.table-hover
           td = order.price
           td
             - order.resources.each_with_index do |resource, index|
-              = link_to "[#{index}]", resource.image.present? ? resource.image.url : resource.link, target: '_blank'
+              - if resource.image.present?
+                = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
           td = date(order.confirmation_date)
           td = date(order.invoice_date)
           td = date(order.delivery_date)

@@ -56,13 +56,6 @@ br
         = f.file_field :image
       .form-group
         = f.submit 'Zapisz zdjęcie', class: 'btn btn-default'
-  .col-md-4
-    = form_for :resource, url: furniture_order_resources_path(furniture_order_id: @furniture_order.id) do |f|
-      .form-group
-        = f.label 'Dodaj link zewnętrzny'
-        = f.text_field :link, class: 'form-control', placeholder: 'http://google.com/...'
-      .form-group
-        = f.submit 'Zapisz link', class: 'btn btn-default'
 
 br
 br
@@ -78,7 +71,6 @@ br
     tr
       th Id
       th Zdjęcie / rysunek
-      th Link zewnętrzny
       th Nazwa pliku
       th Data zapisania
       th
@@ -86,7 +78,6 @@ br
       tr
         td = resource.id
         td = link_to image_tag(resource.image.url(:thumb)), resource.image.url, target: '_blank' if resource.image.present?
-        td = link_to resource.link, resource.link, target: '_blank' if resource.link.present?
         td = resource.image_file_name
         td = date_time(resource.created_at)
         td = link_to 'Usuń', furniture_order_resource_path(@furniture_order, resource), data: {confirm: 'Czy jesteś pewien?'}, method: :delete

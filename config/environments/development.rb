@@ -42,7 +42,7 @@
   config.paperclip_defaults = {
       :s3_host_name => 's3-eu-west-1.amazonaws.com',
       :storage => :s3,
-      :bucket => 'wstechmanagement'
+      :bucket => 'wstech-production'
   }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }

@@ -31,9 +31,7 @@ table.table.table-hover
         td
           - order.resources.each_with_index do |resource, index|
             - if resource.image.present?
-              = link_to image_tag(resource.image(:thumb)), resource.image.url
-            - else
-              = link_to "[#{index}]", resource.link, target: '_blank'
+              = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
         td class="#{request_date_match(order)}"
           = date(order.confirmation_date)
         td

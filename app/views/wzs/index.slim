@@ -26,6 +26,7 @@ h2
         th Data zlecenia
         th Ilość zamówiona / Ilość w WZ
         th Cena
+        th Zdjęcia
         th Data realizacji
 
       tbody
@@ -37,9 +38,13 @@ h2
             td = date(order.created_at)
             td = "#{order.quantity} / #{wz.orders_wzs.find_by(order_id: order.id).quantity}"
             td = order.price
+            td
+              - order.resources.each_with_index do |resource, index|
+                - if resource.image.present?
+                  = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
             td = date(order.delivery_date)
         tr
-          td colspan="7"
+          td colspan="8"
             span.wz-description
               - if wz.description.present?
                 | Opis:&nbsp;

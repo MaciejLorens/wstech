@@ -39,39 +39,20 @@ h3 Nowe zamówienie stolarnia
     = f.fields_for 'image1', @furniture_order.resources.new do |r|
       .col-md-4
         .form-group
-          = r.label 'Dodaj zdjęcie / rysunek'
+          = r.label 'Dodaj zdjęcie / rysunek nr 1'
           = r.file_field :image
 
     = f.fields_for 'image2', @furniture_order.resources.new do |r|
       .col-md-4
         .form-group
-          = r.label 'Dodaj zdjęcie / rysunek'
+          = r.label 'Dodaj zdjęcie / rysunek nr 2'
           = r.file_field :image
 
     = f.fields_for 'image3', @furniture_order.resources.new do |r|
       .col-md-4
         .form-group
-          = r.label 'Dodaj zdjęcie / rysunek'
+          = r.label 'Dodaj zdjęcie / rysunek nr 3'
           = r.file_field :image
-
-  .row
-    = f.fields_for 'url1', @furniture_order.resources.new do |r|
-      .col-md-4
-        .form-group
-          = r.label 'Dodaj link zewnętrzny'
-          = r.text_field :link, class: 'form-control', placeholder: 'http://google.com/...'
-
-    = f.fields_for 'url2', @furniture_order.resources.new do |r|
-      .col-md-4
-        .form-group
-          = r.label 'Dodaj link zewnętrzny'
-          = r.text_field :link, class: 'form-control', placeholder: 'http://google.com/...'
-
-    = f.fields_for 'url3', @furniture_order.resources.new do |r|
-      .col-md-4
-        .form-group
-          = r.label 'Dodaj link zewnętrzny'
-          = r.text_field :link, class: 'form-control', placeholder: 'http://google.com/...'
 
   .row
     .form-group.col-md-4
