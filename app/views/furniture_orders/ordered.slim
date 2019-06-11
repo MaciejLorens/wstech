@@ -37,11 +37,12 @@ table.table.table-hover
         td = date(order.confirmation_date)
         td = date(order.invoice_date)
         td
-          = link_to 'Edytuj', edit_furniture_order_path(order)
-          br
           - if current_user.admin?
-            = link_to 'Zakończ zlecenie', furniture_order_path(order, referer: ordered_furniture_orders_path, furniture_order: {status: 'delivered', delivery_date: Time.now}), data: {confirm: 'Czy jesteś pewien?'}, method: :patch
+            = link_to 'Edytuj', edit_furniture_order_path(order)
             br
-            = link_to 'Historia', history_furniture_order_path(order)
-            br
-          = link_to 'Usuń', furniture_order_path(order), data: {confirm: 'Czy jesteś pewien?'}, method: :delete
+            - if current_user.admin?
+              = link_to 'Zakończ zlecenie', furniture_order_path(order, referer: ordered_furniture_orders_path, furniture_order: {status: 'delivered', delivery_date: Time.now}), data: {confirm: 'Czy jesteś pewien?'}, method: :patch
+              br
+              = link_to 'Historia', history_furniture_order_path(order)
+              br
+            = link_to 'Usuń', furniture_order_path(order), data: {confirm: 'Czy jesteś pewien?'}, method: :delete

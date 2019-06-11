@@ -37,11 +37,12 @@ table.table.table-hover
         td = date(order.confirmation_date)
         td = date(order.invoice_date)
         td
-          = link_to 'Edytuj', edit_metal_order_path(order)
-          br
           - if current_user.admin?
-            = link_to 'Zakończ zlecenie', metal_order_path(order, referer: ordered_metal_orders_path, metal_order: {status: 'delivered', delivery_date: Time.now}), data: {confirm: 'Czy jesteś pewien?'}, method: :patch
+            = link_to 'Edytuj', edit_metal_order_path(order)
             br
-            = link_to 'Historia', history_metal_order_path(order)
-            br
-          = link_to 'Usuń', metal_order_path(order), data: {confirm: 'Czy jesteś pewien?'}, method: :delete
+            - if current_user.admin?
+              = link_to 'Zakończ zlecenie', metal_order_path(order, referer: ordered_metal_orders_path, metal_order: {status: 'delivered', delivery_date: Time.now}), data: {confirm: 'Czy jesteś pewien?'}, method: :patch
+              br
+              = link_to 'Historia', history_metal_order_path(order)
+              br
+            = link_to 'Usuń', metal_order_path(order), data: {confirm: 'Czy jesteś pewien?'}, method: :delete
