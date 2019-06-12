@@ -12,12 +12,12 @@ table.table.table-hover
     th Data utworzenia
     th Na kiedy ma być
     th Ilość
-     - if current_user.admin?
-       th Koszty
-       th Cena
-       th Zysk
-     - else
-       th Cena
+    - if current_user.admin?
+      th Koszty
+      th Cena
+      th Zysk
+    - else
+      th Cena
     th Zdjęcia
     th Potwierdzenie daty zlecenia
     th

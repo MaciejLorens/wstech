@@ -19,81 +19,14 @@ html lang="en"
     = javascript_include_tag 'application'
 
   body
-    .navbar.navbar-default.navbar-static-top
-      .container
-        button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        = link_to 'WS-TECH', root_path, class: 'navbar-brand'
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          ul.nav.navbar-nav
-            li.dropdown
-              = link_to 'Zapytania Stolarnia', '/', class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
-              ul.dropdown-menu
-                li= link_to 'Nowe', new_inquiry_furniture_orders_path
-                li.divider
-                li= link_to 'Lista', inquiry_furniture_orders_path
-                li.divider
-                li= link_to 'Oferty', proposition_furniture_orders_path
-            li.dropdown
-              = link_to 'Zapytania Metalówka', '/', class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
-              ul.dropdown-menu
-                li= link_to 'Nowe', new_inquiry_metal_orders_path
-                li.divider
-                li= link_to 'Lista', inquiry_metal_orders_path
-                li.divider
-                li= link_to 'Oferty', proposition_metal_orders_path
-            li.dropdown
-              = link_to 'Zamówienia Stolarnia', '/', class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
-              ul.dropdown-menu
-                li= link_to 'Nowe', new_furniture_order_path
-                li.divider
-                li= link_to 'Niezatwierdzone', not_confirmed_furniture_orders_path
-                li.divider
-                li= link_to 'Zamówione', ordered_furniture_orders_path
-                li.divider
-                li= link_to 'Zrealizowane bez WZ', delivered_without_wz_furniture_orders_path
-                li.divider
-                li= link_to 'Zrealizowane z WZ', delivered_with_wz_furniture_orders_path(year: Time.now.year, month: Time.now.month)
-                li.divider
-                li= link_to 'Usunięte', deleted_furniture_orders_path
-            li.dropdown
-              = link_to 'Zamówienia Metalówka', '/path4', class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
-              ul.dropdown-menu
-                li= link_to 'Nowe', new_metal_order_path
-                li.divider
-                li= link_to 'Niezatwierdzone', not_confirmed_metal_orders_path
-                li.divider
-                li= link_to 'Zamówione', ordered_metal_orders_path
-                li.divider
-                li= link_to 'Zrealizowane bez WZ', delivered_without_wz_metal_orders_path
-                li.divider
-                li= link_to 'Zrealizowane z WZ', delivered_with_wz_metal_orders_path(year: Time.now.year, month: Time.now.month)
-                li.divider
-                li= link_to 'Usunięte', deleted_metal_orders_path
-            li.dropdown
-              = link_to 'WZ', '/path4', class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
-              ul.dropdown-menu
-                - if current_user && current_user.admin?
-                  li= link_to 'Nowa', new_wz_path
-                  li.divider
-                li= link_to 'Lista', wzs_path(year: Time.now.year, month: Time.now.month)
-
-          ul.nav.navbar-nav.pull-right
-            = text_field_tag :search_tag, '', placeholder: 'Szukaj w opisie', class: 'search_tag'
-            - if user_signed_in?
-              | #{current_user.first_name} #{current_user.last_name} &nbsp&nbsp
-              = link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn'
-            - else
-              = link_to 'Zaloguj', new_user_session_path, class: 'btn btn-default navbar-btn'
-
-    .container
+    = render partial: 'shared/navbar'
+    .main-content.container-fluid
       .row
         .search-results
-        .col-lg-12.main-body
+        .col-sm-12.main-body
           = bootstrap_flash
           = yield
 
       footer
-        p &copy; WS-TECH 2015
+        p
+          | WS-TECH&copy; #{DateTime.now.year} #{mail_to('maciej.lorens@gmail.com', 'MLSoftware')}
