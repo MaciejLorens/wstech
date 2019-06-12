@@ -12,10 +12,14 @@ table.table.table-hover
     th Data zlecenia
     th Na kiedy ma być
     th Ilość
-    th Cena
+    - if current_user.admin?
+      th Koszty
+      th Cena
+      th Zysk
+    - else
+      th Cena
     th Zdjęcia
     th Potwierdzenie daty zlecenia
-    th Fakturowano dnia
     th
 
   tbody
@@ -27,19 +31,26 @@ table.table.table-hover
         td = date(order.created_at)
         td = date(order.delivery_request_date)
         td = order.quantity
-        td = order.price
+        - if current_user.admin?
+          td = order.expense
+          td = order.price
+          td = order.price - order.expense.to_f
+        - else
+          td = order.price
         td
           - order.resources.each_with_index do |resource, index|
             - if resource.image.present?
               = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
         td = date(order.confirmation_date)
-        td = date(order.invoice_date)
         td
           - if current_user.admin?
             = link_to 'Edytuj', edit_metal_order_path(order)
             br
             - if current_user.admin?
-              = link_to 'Zakończ zlecenie', metal_order_path(order, referer: ordered_metal_orders_path, metal_order: {status: 'delivered', delivery_date: Time.now}), data: {confirm: 'Czy jesteś pewien?'}, method: :patch
+              - if order.price.present? && order.expense.present?
+                = link_to 'Zakończ zlecenie', metal_order_path(order, referer: ordered_metal_orders_path, metal_order: {status: 'delivered', delivery_date: Time.now}), data: {confirm: 'Zakończyć zlecenie?'}, method: :patch
+              - else
+                = link_to 'Zakończ zlecenie', edit_metal_order_path(order), data: { confirm: 'Uzupełnij cene sprzedaży i koszty aby zakończyć zlecenie' }
               br
               = link_to 'Historia', history_metal_order_path(order)
               br

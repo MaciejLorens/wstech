@@ -12,7 +12,12 @@ table.table.table-hover
     th Data utworzenia
     th Na kiedy ma być
     th Ilość
-    th Cena
+    - if current_user.admin?
+      th Koszty
+      th Cena
+      th Zysk
+    - else
+      th Cena
     th Zdjęcia
     th Potwierdzenie daty zlecenia
     th
@@ -27,7 +32,12 @@ table.table.table-hover
         td.red
           = date(order.delivery_request_date)
         td = order.quantity
-        td = order.price
+        - if current_user.admin?
+          td = order.expense
+          td = order.price
+          td = order.price - order.expense.to_f
+        - else
+          td = order.price
         td
           - order.resources.each_with_index do |resource, index|
             - if resource.image.present?

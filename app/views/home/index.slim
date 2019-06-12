@@ -3,3 +3,8 @@ h3 Strona główna
 p
   | Strona ta powstała z zamierzeniem usprawnienia komunikacji związanej z zamówieniami w firmie WS-TECH.
 
+br
+br
+
+- if current_user && current_user.admin?
+  = render partial: 'dashboard'

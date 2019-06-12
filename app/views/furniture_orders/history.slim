@@ -13,7 +13,6 @@ table.table.table-hover
     th Cena
     th Zdjęcia
     th Potwierdzenie daty zlecenia
-    th Fakturowano dnia
     th Data realizacji
     th Numer WZ
     th Autor zmiany
@@ -36,7 +35,6 @@ table.table.table-hover
           - if resource.image.present?
             = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
       td = date(@furniture_order.confirmation_date)
-      td = date(@furniture_order.invoice_date)
       td = date(@furniture_order.delivery_date)
       td
         - @furniture_order.wzs.each do |wz|
@@ -63,7 +61,6 @@ table.table.table-hover
               - if resource.image.present?
                 = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
           td = date(order.confirmation_date)
-          td = date(order.invoice_date)
           td = date(order.delivery_date)
           td
             - order.wzs.each do |wz|

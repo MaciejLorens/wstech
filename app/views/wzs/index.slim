@@ -25,7 +25,12 @@ h2
         th Zamawiający
         th Data zlecenia
         th Ilość zamówiona / Ilość w WZ
-        th Cena
+        - if current_user.admin?
+          th Koszty
+          th Cena
+          th Zysk
+        - else
+          th Cena
         th Zdjęcia
         th Data realizacji
 
@@ -37,7 +42,12 @@ h2
             td = "#{order.user.first_name} #{order.user.last_name}"
             td = date(order.created_at)
             td = "#{order.quantity} / #{wz.orders_wzs.find_by(order_id: order.id).quantity}"
-            td = order.price
+            - if current_user.admin?
+              td = order.expense
+              td = order.price
+              td = order.price - order.expense.to_f
+            - else
+              td = order.price
             td
               - order.resources.each_with_index do |resource, index|
                 - if resource.image.present?

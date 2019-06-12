@@ -13,10 +13,14 @@ table.table.table-hover
     th Data zlecenia
     th Na kiedy ma być
     th Ilość / łącznie w WZ
-    th Cena
+    - if current_user.admin?
+      th Koszty
+      th Cena
+      th Zysk
+    - else
+      th Cena
     th Zdjęcia
     th Potwierdzenie daty zlecenia
-    th Fakturowano dnia
     th Data realizacji
     th Numer WZ
     th
@@ -30,13 +34,17 @@ table.table.table-hover
         td = date(order.created_at)
         td = date(order.delivery_request_date)
         td = "#{order.quantity} / <span class='quantity_in_wz'>#{order.quantity_in_wz}</span>".html_safe
-        td = order.price
+        - if current_user.admin?
+          td = order.expense
+          td = order.price
+          td = order.price - order.expense.to_f
+        - else
+          td = order.price
         td
           - order.resources.each_with_index do |resource, index|
             - if resource.image.present?
               = link_to image_tag(resource.image(:thumb)), resource.image.url, target: '_blank'
         td = date(order.confirmation_date)
-        td = date(order.invoice_date)
         td = date(order.delivery_date)
         td
           - order.wzs.each do |wz|

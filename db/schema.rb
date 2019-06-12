@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190416131826) do
+ActiveRecord::Schema.define(version: 20190612105402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20190416131826) do
     t.boolean  "full_in_wz",                                    default: false
     t.datetime "deleted_at"
     t.string   "deleted_by"
+    t.float    "expense"
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
