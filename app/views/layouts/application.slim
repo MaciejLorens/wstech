@@ -75,7 +75,7 @@ html lang="en"
             li.dropdown
               = link_to 'WZ', '/path4', class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
               ul.dropdown-menu
-                - if current_user.admin?
+                - if current_user && current_user.admin?
                   li= link_to 'Nowa', new_wz_path
                   li.divider
                 li= link_to 'Lista', wzs_path(year: Time.now.year, month: Time.now.month)

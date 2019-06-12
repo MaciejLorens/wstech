@@ -1,5 +1,5 @@
 class WzsController < ApplicationController
-  before_filter :authentication, except: [:index]
+  before_filter :authentication, except: [:index, :show]
 
   def new
     @orders = Order

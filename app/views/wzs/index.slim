@@ -12,10 +12,10 @@ h2
     h3
       = wz.number
       .pull-right
-        = link_to 'Edytuj opis', '#', class: 'btn btn-default edit-wz'
-        = link_to 'Zapisz opis', '#', class: 'btn btn-default save-wz hidden'
         = link_to 'Widok pojedynczy', wz_path(wz), class: 'btn btn-default'
         - if current_user.admin?
+          = link_to 'Edytuj opis', '#', class: 'btn btn-default edit-wz'
+          = link_to 'Zapisz opis', '#', class: 'btn btn-default save-wz hidden'
           = link_to 'Usuń', wz_path(wz), data: {confirm: 'Czy jesteś pewien?'}, method: :delete, class: 'btn btn-default remove-wz'
 
     table.table.table-hover
