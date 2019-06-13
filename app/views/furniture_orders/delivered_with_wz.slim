@@ -1,13 +1,17 @@
-h2
-  | Lista zamówień stolarnia - zrealizowane z WZ z&nbsp;
-  = select_tag('order-select-month', options_for_select(name_of_months, params[:month]), class: 'furniture-select')
-  | &nbsp;
-  = select_tag('order-select-year', options_for_select((2014..Time.now.year).to_a.reverse, params[:year]), class: 'furniture-select')
-  | &nbsp;r.
+h3
+  | Lista zamówień stolarnia - zrealizowane z WZ
   .pull-right
     = link_to 'Wydrukuj', '#', onclick: 'window.print()', class: 'btn btn-default', style: 'margin-left: 20px'
-  br
-  br
+
+.well
+  = form_tag root_path, method: :get, class: 'filter-form'
+  .form-group.col-md-8
+    = text_field_tag :from, params[:from].to_datetime.strftime('%Y-%m-%d') || (1.month.ago).strftime('%Y-%m-%d'), placeholder: 'Od', class: 'form-control datepicker f_number'
+    .pause -
+    = text_field_tag :to, params[:to].to_datetime.strftime('%Y-%m-%d') || (0.month.ago).strftime('%Y-%m-%d'), placeholder: 'Do', class: 'form-control datepicker f_number'
+  .form-group.col-md-4
+    = submit_tag 'Filtruj', class: 'btn btn-default pull-right'
+    = link_to 'Czyść', root_path, class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
 
 table.table.table-hover
   tr

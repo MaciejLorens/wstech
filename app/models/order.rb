@@ -24,6 +24,20 @@ class Order < ActiveRecord::Base
     )
   }
 
+  scope :at_month, ->(date) {
+    where('created_at >= ? AND created_at <= ?',
+          date.beginning_of_month,
+          date.end_of_month
+    )
+  }
+
+  scope :from_to, ->(from, to) {
+    where('created_at >= ? AND created_at < ?',
+          from.beginning_of_day,
+          to.end_of_day
+    )
+  }
+
   scope :delivered_at, ->(date) {
     where('delivery_date >= ? AND delivery_date < ?',
           date.beginning_of_day,

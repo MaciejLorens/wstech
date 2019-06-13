@@ -1,0 +1,43 @@
+table.table.table-hover.dashboard-table
+  tr
+    th.center colspan="6" = name
+  tr
+    th Typ
+    th Zamówienia
+    th Koszty
+    th Sprzedaż
+    th Zysk
+    th
+      | [%]
+
+  tbody
+    tr
+      - expenses = orders.furniture.map(&:expense).compact.map(&:to_d).sum
+      - prices = orders.furniture.map(&:price).compact.map(&:to_d).sum
+      - profit = prices - expenses
+      td Stolarnia
+      td = orders.furniture.count
+      td = expenses
+      td = prices
+      td = profit
+      td = prices.zero? ? 0 : "#{(profit  * 100 / prices).round(2)}%"
+    tr
+      - expenses = orders.metal.map(&:expense).compact.map(&:to_d).sum
+      - prices = orders.metal.map(&:price).compact.map(&:to_d).sum
+      - profit = prices - expenses
+      td Metalówka
+      td = orders.metal.count
+      td = expenses
+      td = prices
+      td = profit
+      td = prices.zero? ? 0 : "#{(profit  * 100 / prices).round(2)}%"
+    tr.bold
+      - expenses = orders.map(&:expense).compact.map(&:to_d).sum
+      - prices = orders.map(&:price).compact.map(&:to_d).sum
+      - profit = prices - expenses
+      td Razem
+      td = orders.count
+      td = expenses
+      td = prices
+      td = profit
+      td = prices.zero? ? 0 : "#{(profit  * 100 / prices).round(2)}%"

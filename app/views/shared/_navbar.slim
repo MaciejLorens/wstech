@@ -33,7 +33,7 @@
           li.divider
           li= link_to 'Zrealizowane bez WZ', delivered_without_wz_furniture_orders_path
           li.divider
-          li= link_to 'Zrealizowane z WZ', delivered_with_wz_furniture_orders_path(year: Time.now.year, month: Time.now.month)
+          li= link_to 'Zrealizowane z WZ', delivered_with_wz_furniture_orders_path(from: 1.month.ago, to: Time.now)
           li.divider
           li= link_to 'Usunięte', deleted_furniture_orders_path
       li.dropdown
@@ -47,7 +47,7 @@
           li.divider
           li= link_to 'Zrealizowane bez WZ', delivered_without_wz_metal_orders_path
           li.divider
-          li= link_to 'Zrealizowane z WZ', delivered_with_wz_metal_orders_path(year: Time.now.year, month: Time.now.month)
+          li= link_to 'Zrealizowane z WZ', delivered_with_wz_metal_orders_path(from: 1.month.ago, to: Time.now)
           li.divider
           li= link_to 'Usunięte', deleted_metal_orders_path
       li.dropdown
@@ -59,7 +59,7 @@
           li= link_to 'Lista', wzs_path(year: Time.now.year, month: Time.now.month)
 
     ul.nav.navbar-nav.pull-right
-      = text_field_tag :search_tag, '', placeholder: 'Szukaj w opisie', class: 'search_tag'
+      = text_field_tag :search_tag, '', placeholder: 'Szukaj w opisie', class: 'search_tag form-control'
       - if user_signed_in?
         | #{current_user.first_name} #{current_user.last_name} &nbsp&nbsp
         = link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn'

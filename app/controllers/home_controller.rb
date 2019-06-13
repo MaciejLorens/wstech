@@ -1,12 +1,14 @@
 class HomeController < ApplicationController
 
   def index
-    from = params[:from] || 1.month.ago.beginning_of_day
-    to = params[:to] || Time.now.end_of_day
+    from = (params[:from] || Time.now.beginning_of_year.to_s).to_date
+    to = (params[:to] || Time.now.end_of_day.to_s).to_date
 
-    @metal_orders = Order.metal.where('delivery_date >= ? AND delivery_date <= ?', from, to)
-    @furniture_orders = Order.furniture.where('delivery_date >= ? AND delivery_date <= ?', from, to)
-    @orders = Order.where('delivery_date >= ? AND delivery_date <= ?', from, to)
+    if params[:from].present? && params[:to].present?
+      @orders = Order.from_to(from, to)
+    else
+      @orders = Order.from_to(Time.now.beginning_of_year, Time.now.end_of_year)
+    end
   end
 
   def search

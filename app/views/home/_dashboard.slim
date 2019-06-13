@@ -1,52 +1,64 @@
-.col-md-6
-  .content
-    .well
-      = form_tag root_path, method: :get, class: 'filter-form'
-      .form-group.col-md-8
-        = text_field_tag :from, params[:from] || (1.month.ago).strftime('%Y-%m-%d'), placeholder: 'Od', class: 'form-control datepicker f_number'
-        = text_field_tag :to, params[:to] || (0.month.ago).strftime('%Y-%m-%d'), placeholder: 'Do', class: 'form-control datepicker f_number'
-      .form-group.col-md-4
-        = submit_tag 'Filtruj', class: 'btn btn-default pull-right'
-        = link_to 'Czyść', root_path, class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
+h3 Statystyki
 
+.well
+  = form_tag root_path, method: :get, class: 'filter-form'
+  .form-group.col-md-8
+    = text_field_tag :from, params[:from], placeholder: 'Od', class: 'form-control datepicker f_number'
+    .pause -
+    = text_field_tag :to, params[:to], placeholder: 'Do', class: 'form-control datepicker f_number'
+  .form-group.col-md-4
+    = submit_tag 'Filtruj', class: 'btn btn-default pull-right'
+    = link_to 'Czyść', root_path, class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
 
-  table.table.table-hover.dashboard-table
-    tr
-      th
-      th Liczba zamówień zrealizowanych
-      th Łączne koszty
-      th Łączna sprzedaż
-      th Łączny zysk
-      th Zysk / Sprzedaż [%]
+br
 
-    tbody
-      tr
-        - expenses = @furniture_orders.map(&:expense).compact.sum
-        - prices = @furniture_orders.map(&:price).sum
-        - profit = prices - expenses
-        td Stolarnia
-        td = @furniture_orders.count
-        td = expenses
-        td = prices
-        td = profit
-        td = "#{(profit  * 100 / prices).round(2)}%"
-      tr
-        - expenses = @metal_orders.map(&:expense).compact.sum
-        - prices = @metal_orders.map(&:price).sum
-        - profit = prices - expenses
-        td Metalówka
-        td = @metal_orders.count
-        td = expenses
-        td = prices
-        td = profit
-        td = "#{(profit  * 100 / prices).round(2)}%"
-      tr
-        - expenses = @orders.map(&:expense).compact.sum
-        - prices = @orders.map(&:price).sum
-        - profit = prices - expenses
-        td Razem
-        td = @orders.count
-        td = expenses
-        td = prices
-        td = profit
-        td = "#{(profit  * 100 / prices).round(2)}%"
+- if params[:from].present? && params[:to].present?
+  .row
+    .col-md-6
+      - orders = @orders.from_to(params[:from].to_date, params[:to].to_date)
+      = render partial: 'stats', locals: { orders: orders, name: "#{params[:from]} - #{params[:to]}" } if orders.present?
+- else
+  - year = Time.now.year
+  .row
+    .col-md-4
+      - orders = @orders.at_month("01.01.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Styczeń #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.02.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Luty #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.03.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Marzec #{year}"} if orders.present?
+  br
+  .row
+    .col-md-4
+      - orders = @orders.at_month("01.04.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Kwiecień #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.05.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Maj #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.06.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Czerwiec #{year}"} if orders.present?
+  br
+  .row
+    .col-md-4
+      - orders = @orders.at_month("01.07.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Lipiec #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.08.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Sierpień #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.09.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Wrzesień #{year}"} if orders.present?
+  br
+  .row
+    .col-md-4
+      - orders = @orders.at_month("01.10.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Październik #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.11.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Listopad #{year}"} if orders.present?
+    .col-md-4
+      - orders = @orders.at_month("01.12.#{year}".to_date)
+      = render partial: 'stats', locals: {orders: orders, name: "Grudzień #{year}"} if orders.present?

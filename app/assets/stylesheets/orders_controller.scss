@@ -22,6 +22,13 @@ a[href]:after {
   padding: 5px 10px;
   margin: 0 20px 0 0;
   width: 200px;
+  font-size: 14px;
+  font-weight: 400;
+  display: inline-block;
+
+  &::placeholder {
+    color: #555555;
+  }
 }
 
 h2 span {
