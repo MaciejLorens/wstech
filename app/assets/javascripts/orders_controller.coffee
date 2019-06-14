@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
+  setTimeout ->
+    $(".alert").fadeOut(500)
+  , 1500
+
   $('.datepicker').datepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,

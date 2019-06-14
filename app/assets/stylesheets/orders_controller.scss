@@ -40,6 +40,7 @@ tbody.clickable tr {
   cursor: pointer;
 
   &.clicked {
+    color: white;
     background-color: #dd733e;
   }
 }

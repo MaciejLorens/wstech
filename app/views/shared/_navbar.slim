@@ -56,7 +56,7 @@
           - if current_user && current_user.admin?
             li= link_to 'Nowa', new_wz_path
             li.divider
-          li= link_to 'Lista', wzs_path(year: Time.now.year, month: Time.now.month)
+          li= link_to 'Lista', wzs_path
 
     ul.nav.navbar-nav.pull-right
       = text_field_tag :search_tag, '', placeholder: 'Szukaj w opisie', class: 'search_tag form-control'

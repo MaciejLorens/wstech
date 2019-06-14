@@ -59,9 +59,17 @@ table.table.table-hover
             = link_to(wz.number, wz_path(wz))
         td
           - if current_user.admin?
-            = link_to 'Edytuj', edit_metal_order_path(order)
+            = link_to 'Edytuj',
+                edit_metal_order_path(order),
+                class: 'btn btn-default btn-sm'
             br
             - if current_user.admin?
-              = link_to 'Historia', history_metal_order_path(order)
+              = link_to 'Historia',
+                  history_metal_order_path(order),
+                  class: 'btn btn-default btn-sm'
               br
-            = link_to 'Usuń', metal_order_path(order, referer: delivered_with_wz_metal_orders_path(year: params[:year], month: params[:month])), data: {confirm: 'Czy jesteś pewien?'}, method: :delete
+            = link_to 'Usuń',
+                metal_order_path(order, referer: delivered_with_wz_metal_orders_path(year: params[:year], month: params[:month])),
+                class: 'btn btn-default btn-sm',
+                data: {confirm: 'Usunąć zamówienie?'},
+                method: :delete

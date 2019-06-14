@@ -9,9 +9,9 @@ class WzsController < ApplicationController
   end
 
   def index
-    year = params[:year] || Date.today.year
-    month = params[:month] || Date.today.month
-    @wzs = Wz.where('status IS NULL').at_year_at_month(year, month).includes(orders: [:user]).order(created_at: :desc)
+    @wzs = Wz.where('status IS NULL')
+             .from_to(params[:from], params[:to])
+             .includes(orders: [:user]).order(created_at: :desc)
   end
 
   def show

@@ -35,8 +35,18 @@ table.table.table-hover
         td class="#{request_date_match(order)}"
           = date(order.confirmation_date)
         td
-          = link_to 'Utwórz zamówienie', furniture_order_path(order, referer: proposition_furniture_orders_path, furniture_order: {status: 'not_confirmed'}), data: {confirm: 'Czy jesteś pewien?'}, method: :patch
+          = link_to 'Utwórz<br>zamówienie'.html_safe,
+              furniture_order_path(order, referer: proposition_furniture_orders_path, furniture_order: {status: 'not_confirmed'}),
+              class: 'btn btn-default btn-sm',
+              data: {confirm: 'Utworzyć zamówienie?'},
+              method: :patch
           br
-          = link_to 'Edytuj', edit_furniture_order_path(order)
+          = link_to 'Edytuj',
+              edit_furniture_order_path(order),
+              class: 'btn btn-default btn-sm'
           br
-          = link_to 'Usuń', furniture_order_path(order), data: {confirm: 'Czy jesteś pewien?'}, method: :delete
+          = link_to 'Usuń',
+              furniture_order_path(order),
+              class: 'btn btn-default btn-sm',
+              data: {confirm: 'Usunąć zamówienie?'},
+              method: :delete

@@ -1,7 +1,7 @@
-h2
+h3
   | Lista zamówień - zrealizowane bez WZ
   .pull-right
-    = link_to 'Zaznacz zamówienia aby stworzyć WZ', '#', class: 'btn btn-default wz-create', disabled: 'disabled', style: 'margin-left: 20px'
+    = link_to 'Zaznacz zamówienia', '#', class: 'btn btn-default wz-create', disabled: 'disabled', style: 'margin-left: 20px'
   br
   br
 
@@ -37,4 +37,4 @@ table.table.table-hover
         td = date(order.confirmation_date)
         td = type(order)
         td = date(order.delivery_date)
-        td = select_tag(:count_to_wz, options_for_select(1..(order.quantity - order.quantity_in_wz), order.quantity - order.quantity_in_wz))
+        td = select_tag(:count_to_wz, options_for_select(1..(order.quantity - order.quantity_in_wz), order.quantity - order.quantity_in_wz), class: 'form-control')

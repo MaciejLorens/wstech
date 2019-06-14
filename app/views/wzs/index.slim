@@ -1,22 +1,27 @@
-h2
-  | Lista WZ z&nbsp;
-  = select_tag('wz-select-month', options_for_select(name_of_months, params[:month] || Date.today.month), class: 'wz-select')
-  | &nbsp;
-  = select_tag('wz-select-year', options_for_select((2014..Date.today.year).to_a.reverse, params[:year] || Date.today.year), class: 'wz-select')
-  | &nbsp;r.
-  br
-  br
+h3
+  | Lista WZ
+
+.well
+  = form_tag wzs_path, method: :get, class: 'filter-form'
+  .form-group.col-md-8
+    = text_field_tag :from, params[:from].to_datetime.strftime('%d-%m-%Y') || (1.month.ago).strftime('%d-%m-%Y'), placeholder: 'Od', class: 'form-control datepicker f_number'
+    .pause -
+    = text_field_tag :to, params[:to].to_datetime.strftime('%d-%m-%Y') || (0.month.ago).strftime('%d-%m-%Y'), placeholder: 'Do', class: 'form-control datepicker f_number'
+  .form-group.col-md-4
+    = submit_tag 'Filtruj', class: 'btn btn-default pull-right'
+    = link_to 'Czyść', delivered_with_wz_metal_orders_path(from: 1.month.ago, to: Time.now), class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
+
 
 - @wzs.each do |wz|
   .wz data-wz-id=wz.id
-    h3
+    h4
       = wz.number
       .pull-right
         = link_to 'Widok pojedynczy', wz_path(wz), class: 'btn btn-default'
         - if current_user.admin?
           = link_to 'Edytuj opis', '#', class: 'btn btn-default edit-wz'
           = link_to 'Zapisz opis', '#', class: 'btn btn-default save-wz hidden'
-          = link_to 'Usuń', wz_path(wz), data: {confirm: 'Czy jesteś pewien?'}, method: :delete, class: 'btn btn-default remove-wz'
+          = link_to 'Usuń', wz_path(wz), data: {confirm: 'Usunąć WZ?'}, method: :delete, class: 'btn btn-default remove-wz'
 
     table.table.table-hover
       tr

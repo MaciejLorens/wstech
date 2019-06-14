@@ -4,8 +4,19 @@ class Wz < ActiveRecord::Base
 
   validates_presence_of :number
 
-  scope :at_date, ->(date) { where('created_at >= ? AND created_at < ?', date.beginning_of_day, date.beginning_of_day + 1.day)}
-  scope :at_year_at_month, ->(year, month) { where('created_at >= ? AND created_at < ?', "#{year}/#{month}/01".to_datetime, "#{year}/#{month}/01".to_datetime.end_of_month) }
+  scope :at_date, ->(date) {
+    where('created_at >= ? AND created_at < ?',
+          date.beginning_of_day,
+          date.beginning_of_day + 1.day
+    )
+  }
+
+  scope :from_to, ->(from, to) {
+    where('created_at >= ? AND created_at < ?',
+          from.to_date.beginning_of_day,
+          to.to_date.end_of_day
+    )
+  }
 
   after_create :set_number
 
@@ -28,4 +39,5 @@ class Wz < ActiveRecord::Base
   def date(date)
     date.localtime.strftime('%d-%m-%Y') if date.present?
   end
+
 end

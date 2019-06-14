@@ -48,12 +48,6 @@ class Order < ActiveRecord::Base
     where('status = ?', status)
   }
 
-  scope :at_year_at_month, ->(year, month) {
-    where('orders.created_at >= ? AND orders.created_at < ?',
-          "#{year}/#{month}/01".to_datetime,
-          "#{year}/#{month}/01".to_datetime.end_of_month)
-  }
-
   def check_status
     if status == 'not_confirmed' && delivery_request_date.try(:to_date) == confirmation_date.try(:to_date)
       self.status = 'ordered'

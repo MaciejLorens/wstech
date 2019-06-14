@@ -49,4 +49,4 @@ table.table.table-hover
           - if current_user.admin?
             = link_to 'Historia', order.type == 'FurnitureOrder' ? history_furniture_order_path(order) : history_metal_order_path(order)
             br
-          = link_to 'Usuń', order.type == 'FurnitureOrder' ? furniture_order_path(order) : metal_order_path(order), data: {confirm: 'Czy jesteś pewien?'}, method: :delete
+          = link_to 'Usuń', order.type == 'FurnitureOrder' ? furniture_order_path(order) : metal_order_path(order), data: {confirm: 'Usunąć zamówienie?'}, method: :delete

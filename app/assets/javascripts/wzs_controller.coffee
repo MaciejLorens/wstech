@@ -7,10 +7,10 @@ $ ->
   $("tbody.clickable tr").click ->
     $(@).toggleClass('clicked')
     if $("tbody.clickable tr.clicked").length > 0
-      $(".wz-create").text('Stwórz WZ z dzisiaj z zaznaczonych zamówień')
+      $(".wz-create").text('Stwórz WZ z dzisiaj')
       $(".wz-create").removeAttr('disabled')
     else
-      $(".wz-create").text('Zaznacz zamówienia aby stworzyć WZ')
+      $(".wz-create").text('Zaznacz zamówienia')
       $(".wz-create").attr('disabled', 'disabled')
 
   $(".wz-create").click ->
