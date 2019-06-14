@@ -1,9 +1,7 @@
-h2
+h3
   | Lista zamówień metalówka - usunięte
   .pull-right
     = link_to 'Wydrukuj', '#', onclick: 'window.print()', class: 'btn btn-default', style: 'margin-left: 20px'
-  br
-  br
 
 table.table.table-hover
   tr
@@ -38,7 +36,7 @@ table.table.table-hover
         - if current_user.admin?
           td = order.expense
           td = order.price
-          td = order.price - order.expense.to_f
+          td = order.price.to_f - order.expense.to_f
         - else
           td = order.price
         td

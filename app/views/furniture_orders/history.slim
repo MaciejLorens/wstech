@@ -61,7 +61,7 @@ table.table.table-hover
           td = "#{order.quantity} / <span class='quantity_in_wz'>#{order.quantity_in_wz}</span>".html_safe
           td = order.expense
           td = order.price
-          td = order.price - order.expense.to_f
+          td = order.price.to_f - order.expense.to_f
           td
             - order.resources.each_with_index do |resource, index|
               - if resource.image.present?

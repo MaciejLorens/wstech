@@ -50,7 +50,7 @@ h3
             - if current_user.admin?
               td = order.expense
               td = order.price
-              td = order.price - order.expense.to_f
+              td = order.price.to_f - order.expense.to_f
             - else
               td = order.price
             td
@@ -65,4 +65,3 @@ h3
                 | Opis:&nbsp;
                 = wz.description
             = text_field_tag :wz_description, wz.description, class: 'hidden wz-description-field'
-    br

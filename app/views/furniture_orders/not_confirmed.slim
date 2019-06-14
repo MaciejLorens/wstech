@@ -35,7 +35,7 @@ table.table.table-hover
         - if current_user.admin?
           td = order.expense
           td = order.price
-          td = order.price - order.expense.to_f
+          td = order.price.to_f - order.expense.to_f
         - else
           td = order.price
         td
