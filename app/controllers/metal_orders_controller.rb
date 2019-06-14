@@ -86,8 +86,13 @@ class MetalOrdersController < ApplicationController
   end
 
   def download
+    status = params[:status]
+
     respond_to do |format|
-      format.csv { send_data Order.metal.to_csv(params[:status]) }
+      format.csv do
+        csv = MetalOrder.to_csv(status)
+        send_data csv, filename: "orders-#{status}-#{Date.today}.csv"
+      end
     end
   end
 
