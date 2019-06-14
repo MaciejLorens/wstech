@@ -14,51 +14,15 @@ br
 
 - if params[:from].present? && params[:to].present?
   .row
-    .col-md-6
+    .col-md-5
       - orders = @orders.from_to(params[:from].to_date, params[:to].to_date)
       = render partial: 'stats', locals: { orders: orders, name: "#{params[:from]} - #{params[:to]}" } if orders.present?
 - else
-  - year = Time.now.year
   .row
-    .col-md-4
-      - orders = @orders.at_month("01.01.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Styczeń #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.02.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Luty #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.03.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Marzec #{year}"} if orders.present?
-  br
-  .row
-    .col-md-4
-      - orders = @orders.at_month("01.04.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Kwiecień #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.05.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Maj #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.06.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Czerwiec #{year}"} if orders.present?
-  br
-  .row
-    .col-md-4
-      - orders = @orders.at_month("01.07.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Lipiec #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.08.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Sierpień #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.09.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Wrzesień #{year}"} if orders.present?
-  br
-  .row
-    .col-md-4
-      - orders = @orders.at_month("01.10.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Październik #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.11.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Listopad #{year}"} if orders.present?
-    .col-md-4
-      - orders = @orders.at_month("01.12.#{year}".to_date)
-      = render partial: 'stats', locals: {orders: orders, name: "Grudzień #{year}"} if orders.present?
+    .col-md-5
+      - orders = @orders.from_to(1.month.ago.beginning_of_month, 1.month.ago.end_of_month)
+      = render partial: 'stats', locals: {orders: orders, name: "Poprzedni miesiąc"} if orders.present?
+    .col-md-2
+    .col-md-5
+      - orders = @orders.from_to(0.month.ago.beginning_of_month, 0.month.ago.end_of_month)
+      = render partial: 'stats', locals: {orders: orders, name: "Bieżący miesiąc"} if orders.present?

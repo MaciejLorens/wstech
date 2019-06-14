@@ -34,6 +34,10 @@ h3 Nowe zamówienie stolarnia
       .form-group.col-md-4
         = f.label 'Potwierdzenie daty zlecenia'
         = f.text_field :confirmation_date, class: 'datepicker form-control', placeholder: 7.days.from_now.strftime('%d-%m-%Y')
+      .form-group.col-md-4
+      .form-group.col-md-4
+        = f.label 'Koszty'
+        = f.text_field :expense, class: 'form-control', placeholder: '100.00'
 
   .row
     = f.fields_for 'image1', @furniture_order.resources.new do |r|
@@ -54,6 +58,5 @@ h3 Nowe zamówienie stolarnia
           = r.label 'Dodaj zdjęcie / rysunek nr 3'
           = r.file_field :image
 
-  .row
     .form-group.col-md-4
       = f.submit 'Zapisz', class: 'btn btn-default'

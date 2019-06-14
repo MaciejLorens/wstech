@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get :not_confirmed, on: :collection
     get :ordered, on: :collection
     get :delivered_without_wz, on: :collection
-    get :delivered_with_wz, on: :collection
+    get :delivered_with_wz, on: :collection, defaults: {from: 1.month.ago, to: Time.now}
     get :deleted, on: :collection
     get :download, on: :collection
     get :history, on: :member
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get :not_confirmed, on: :collection
     get :ordered, on: :collection
     get :delivered_without_wz, on: :collection
-    get :delivered_with_wz, on: :collection
+    get :delivered_with_wz, on: :collection, defaults: {from: 1.month.ago, to: Time.now}
     get :deleted, on: :collection
     get :download, on: :collection
     get :history, on: :member

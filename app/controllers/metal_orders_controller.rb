@@ -28,7 +28,7 @@ class MetalOrdersController < ApplicationController
     @metal_order = Order.metal
                      .includes(:resources, :user, :wzs)
                      .where(status: 'delivered', full_in_wz: true)
-                     .at_year_at_month(params[:year], params[:month])
+                     .from_to(params[:from], params[:to])
                      .order(created_at: :desc)
   end
 

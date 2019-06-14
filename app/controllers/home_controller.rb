@@ -5,9 +5,9 @@ class HomeController < ApplicationController
     to = (params[:to] || Time.now.end_of_day.to_s).to_date
 
     if params[:from].present? && params[:to].present?
-      @orders = Order.from_to(from, to)
+      @orders = Order.where(status: 'delivered').from_to(from, to)
     else
-      @orders = Order.from_to(Time.now.beginning_of_year, Time.now.end_of_year)
+      @orders = Order.where(status: 'delivered').all
     end
   end
 

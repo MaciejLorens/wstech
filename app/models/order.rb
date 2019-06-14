@@ -33,8 +33,8 @@ class Order < ActiveRecord::Base
 
   scope :from_to, ->(from, to) {
     where('created_at >= ? AND created_at < ?',
-          from.beginning_of_day,
-          to.end_of_day
+          from.to_date.beginning_of_day,
+          to.to_date.end_of_day
     )
   }
 

@@ -4,7 +4,7 @@ h3 Nowe zamówienie metalówka
   = hidden_field_tag :referer, request.referer
   - if @metal_order.errors.any?
     #error_explanation
-      h2 = 'Błędy uniemożliwiające wysłanie formularza:'
+      h3 = 'Błędy uniemożliwiające wysłanie formularza:'
       ul
         - @metal_order.errors.full_messages.each do |message|
           li = message
@@ -26,7 +26,7 @@ h3 Nowe zamówienie metalówka
       = f.text_field :quantity, class: 'form-control', placeholder: '1'
 
     .form-group.col-md-4
-      = f.label 'Cena'
+      = f.label 'Cena sprzedaży'
       = f.text_field :price, class: 'form-control', placeholder: '100.00'
 
   - if current_user.admin?
@@ -34,6 +34,10 @@ h3 Nowe zamówienie metalówka
       .form-group.col-md-4
         = f.label 'Potwierdzenie daty zlecenia'
         = f.text_field :confirmation_date, class: 'datepicker form-control', placeholder: 7.days.from_now.strftime('%d-%m-%Y')
+      .form-group.col-md-4
+      .form-group.col-md-4
+        = f.label 'Koszty'
+        = f.text_field :expense, class: 'form-control', placeholder: '100.00'
 
   .row
     = f.fields_for 'image1', @metal_order.resources.new do |r|

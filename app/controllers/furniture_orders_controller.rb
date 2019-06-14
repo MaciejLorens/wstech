@@ -28,7 +28,7 @@ class FurnitureOrdersController < ApplicationController
     @furniture_order = Order.furniture
                          .includes(:resources, :user, :wzs)
                          .where(status: 'delivered', full_in_wz: true)
-                         .where('created_at >= ? AND created_at < ?', params[:from], params[:to])
+                         .from_to(params[:from], params[:to])
                          .order(created_at: :desc)
   end
 
