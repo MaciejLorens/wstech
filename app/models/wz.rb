@@ -22,7 +22,7 @@ class Wz < ActiveRecord::Base
 
   def to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << ['Id', 'Opis', 'Zamawiający', 'Data zlecenia', 'Na kiedy ma być', 'Ilość', 'Cena', 'Potwierdzenie daty zlecenia', 'Data realizacji', 'Numer WZ']
+      csv << ['Id', 'Opis', 'Zamawiający', 'Data utworzenia', 'Na kiedy ma być', 'Ilość', 'Cena', 'Potwierdzenie daty zlecenia', 'Data realizacji', 'Numer WZ']
       orders.each do |order|
         csv << [order.number, order.description, "#{order.user.first_name} #{order.user.last_name}", date(order.created_at), date(order.delivery_request_date), order.quantity, order.price, date(order.confirmation_date), date(order.delivery_date), order.try(:wz).try(:number)]
       end
