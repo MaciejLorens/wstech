@@ -25,10 +25,13 @@ class FurnitureOrdersController < ApplicationController
   end
 
   def delivered_with_wz
+    @from = params[:from] || 1.month.ago.strftime('%d-%m-%Y')
+    @to = params[:to] || 0.month.ago.strftime('%d-%m-%Y')
+
     @furniture_order = Order.furniture
                          .includes(:resources, :user, :wzs)
                          .where(status: 'delivered', full_in_wz: true)
-                         .from_to(params[:from], params[:to])
+                         .from_to(@from, @to)
                          .order(created_at: :desc)
   end
 

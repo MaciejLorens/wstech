@@ -6,12 +6,12 @@ h3
 .well
   = form_tag delivered_with_wz_furniture_orders_path, method: :get, class: 'filter-form'
   .form-group.col-md-8
-    = text_field_tag :from, params[:from].to_datetime.strftime('%d-%m-%Y') || (1.month.ago).strftime('%d-%m-%Y'), placeholder: 'Od', class: 'form-control datepicker f_number'
+    = text_field_tag :from, @from, placeholder: 'Od', class: 'form-control datepicker f_number'
     .pause -
-    = text_field_tag :to, params[:to].to_datetime.strftime('%d-%m-%Y') || (0.month.ago).strftime('%d-%m-%Y'), placeholder: 'Do', class: 'form-control datepicker f_number'
+    = text_field_tag :to, @to, placeholder: 'Do', class: 'form-control datepicker f_number'
   .form-group.col-md-4
     = submit_tag 'Filtruj', class: 'btn btn-default pull-right'
-    = link_to 'Czyść', delivered_with_wz_furniture_orders_path(from: 1.month.ago, to: Time.now), class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
+    = link_to 'Czyść', delivered_with_wz_furniture_orders_path, class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
 
 table.table.table-hover
   tr
@@ -71,4 +71,5 @@ table.table.table-hover
             = link_to 'Usuń',
                 furniture_order_path(order, referer: delivered_with_wz_furniture_orders_path(year: params[:year], month: params[:month])),
                 class: 'btn btn-default btn-sm',
-                data: {confirm: 'Usunąć zamówienie?'}, method: :delete
+                data: {confirm: 'Usunąć zamówienie?'},
+                method: :delete
