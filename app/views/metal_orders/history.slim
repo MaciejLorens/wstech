@@ -33,7 +33,7 @@ table.table.table-hover
       td = "#{@metal_order.quantity} / <span class='quantity_in_wz'>#{@metal_order.quantity_in_wz}</span>".html_safe
       td = @metal_order.expense
       td = @metal_order.price
-      td = @metal_order.price - @metal_order.expense.to_f
+      td = @metal_order.price.to_f.to_d - @metal_order.expense.to_f.to_d
       td
         - @metal_order.resources.each do |resource|
           - if resource.image.present?
@@ -61,7 +61,7 @@ table.table.table-hover
           td = "#{order.quantity} / <span class='quantity_in_wz'>#{order.quantity_in_wz}</span>".html_safe
           td = order.expense
           td = order.price
-          td = order.price.to_f - order.expense.to_f
+          td = order.price.to_f.to_d - order.expense.to_f.to_d
           td
             - order.resources.each_with_index do |resource, index|
               - if resource.image.present?
