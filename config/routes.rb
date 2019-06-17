@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     get :history, on: :member
   end
 
-  resources :wzs do
+  resources :wzs, except: [:index] do
     get :download, on: :member
     get :index, on: :collection, defaults: {from: 1.month.ago, to: Time.now}
     get :deleted, on: :collection
