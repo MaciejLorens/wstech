@@ -34,6 +34,7 @@ h3
           th Koszty
           th Cena
           th Zysk
+          th Nabywca
         - else
           th Cena
         th Zdjęcia
@@ -51,6 +52,7 @@ h3
               td = order.expense
               td = order.price
               td = order.price.to_f.to_d - order.expense.to_f.to_d
+              td = order.purchaser
             - else
               td = order.price
             td

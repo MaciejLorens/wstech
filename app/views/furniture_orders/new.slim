@@ -35,6 +35,8 @@ h3 Nowe zamówienie stolarnia
         = f.label 'Potwierdzenie daty zlecenia'
         = f.text_field :confirmation_date, class: 'datepicker form-control', placeholder: 7.days.from_now.strftime('%d-%m-%Y')
       .form-group.col-md-4
+        = f.label 'Nabywca'
+        = f.select :purchaser, options_for_select([['Brak', nil], ['WSK', 'WSK'], ['Inne', 'Inne']]), {}, { class: 'form-control' }
       .form-group.col-md-4
         = f.label 'Koszty'
         = f.text_field :expense, class: 'form-control', placeholder: '100.00'

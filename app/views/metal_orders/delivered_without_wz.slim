@@ -3,6 +3,18 @@ h3
   .pull-right
     = link_to 'Wydrukuj', '#', onclick: 'window.print()', class: 'btn btn-default', style: 'margin-left: 20px'
 
+- if current_user.admin?
+  .well
+    = form_tag delivered_without_wz_metal_orders_path, method: :get, class: 'filter-form'
+    .form-group.col-md-1
+      = select_tag :purchaser, options_for_select([['Nabywca', nil], ['WSK', 'WSK'], ['Inne', 'Inne']], params[:purchaser]), class: 'form-control'
+    .col-md-1
+      = select_tag :balance, options_for_select([['Saldo', nil], ['Dodatnie', 'plus'], ['Zero', 'zero'], ['Ujemne', 'minus']], params[:balance]), class: 'form-control'
+    .form-group.col-md-6
+    .form-group.col-md-4
+      = submit_tag 'Filtruj', class: 'btn btn-default pull-right'
+      = link_to 'Czyść', delivered_without_wz_metal_orders_path, class: 'btn btn-default pull-right', style: 'margin-right: 10px;'
+
 table.table.table-hover
   tr
     th Numer zamówienia
@@ -15,6 +27,7 @@ table.table.table-hover
       th Koszty
       th Cena
       th Zysk
+      th Nabywca
     - else
       th Cena
     th Zdjęcia
@@ -36,6 +49,7 @@ table.table.table-hover
           td = order.expense
           td = order.price
           td = order.price.to_f.to_d - order.expense.to_f.to_d
+          td = order.purchaser
         - else
           td = order.price
         td

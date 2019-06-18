@@ -16,6 +16,7 @@ table.table.table-hover
       th Koszty
       th Cena
       th Zysk
+      th Nabywca
     - else
       th Cena
     th Zdjęcia
@@ -35,6 +36,7 @@ table.table.table-hover
           td = order.expense
           td = order.price
           td = order.price.to_f.to_d - order.expense.to_f.to_d
+          td = order.purchaser
         - else
           td = order.price
         td
@@ -49,7 +51,7 @@ table.table.table-hover
                 class: 'btn btn-default btn-sm'
             br
             - if current_user.admin?
-              - if order.price.present? && order.expense.present?
+              - if order.price.present? && order.expense.present? && order.purchaser.present?
                 = link_to 'Zakończ<br>zlecenie'.html_safe,
                     furniture_order_path(order, referer: ordered_furniture_orders_path, furniture_order: {status: 'delivered', delivery_date: Time.now}),
                     class: 'btn btn-default btn-sm',
@@ -59,7 +61,7 @@ table.table.table-hover
                 = link_to 'Zakończ<br>zlecenie'.html_safe,
                     edit_furniture_order_path(order),
                     class: 'btn btn-default btn-sm',
-                    data: { confirm: 'Uzupełnij cene sprzedaży i koszty aby zakończyć zlecenie' }
+                    data: { confirm: 'Uzupełnij cenę, koszty i zamawiającego aby zakończyć zlecenie' }
               br
               = link_to 'Historia',
                   history_furniture_order_path(order),

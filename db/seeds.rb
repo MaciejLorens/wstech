@@ -4,6 +4,8 @@ tomek = User.create(first_name: 'Tomasz', last_name: 'Somer', email: 'tomasz@som
 
 client = User.create(first_name: 'Franek', last_name: 'Golas', email: 'franek@golas.fm', password: '1234567890', admin: false)
 
+
+
 200.times do
   Order.create(
     type: %w(MetalOrder FurnitureOrder).sample,
@@ -12,6 +14,7 @@ client = User.create(first_name: 'Franek', last_name: 'Golas', email: 'franek@go
     quantity: rand(100),
     expense: rand(60000).to_f / 100,
     price: rand(100000).to_f / 100,
+    purchaser: %w(WSK inne).sample,
     delivery_request_date: Time.now + rand(5).days,
     confirmation_date: Time.now + rand(20).days,
     status: %w(inquiry proposition not_confirmed ordered delivered deleted).sample,

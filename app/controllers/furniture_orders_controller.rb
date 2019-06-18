@@ -22,6 +22,23 @@ class FurnitureOrdersController < ApplicationController
                          .includes(:resources, :user, :wzs)
                          .where(status: 'delivered', full_in_wz: false)
                          .order(created_at: :desc)
+
+    if params[:purchaser].present?
+      @furniture_order = @furniture_order.where(purchaser: params[:purchaser])
+    end
+
+    if params[:balance].present?
+      @furniture_order = @furniture_order.select do |order|
+        profit = order.price.to_f.to_d - order.expense.to_f.to_d
+        if params[:balance] == 'plus'
+          profit > 0
+        elsif params[:balance] == 'zero'
+          profit == 0
+        elsif params[:balance] == 'minus'
+          profit < 0
+        end
+      end
+    end
   end
 
   def delivered_with_wz
@@ -33,6 +50,23 @@ class FurnitureOrdersController < ApplicationController
                          .where(status: 'delivered', full_in_wz: true)
                          .from_to(@from, @to)
                          .order(created_at: :desc)
+
+    if params[:purchaser].present?
+      @furniture_order = @furniture_order.where(purchaser: params[:purchaser])
+    end
+
+    if params[:balance].present?
+      @furniture_order = @furniture_order.select do |order|
+        profit = order.price.to_f.to_d - order.expense.to_f.to_d
+        if params[:balance] == 'plus'
+          profit > 0
+        elsif params[:balance] == 'zero'
+          profit == 0
+        elsif params[:balance] == 'minus'
+          profit < 0
+        end
+      end
+    end
   end
 
   def history
@@ -104,6 +138,10 @@ class FurnitureOrdersController < ApplicationController
   end
 
   private
+
+  def filter_query
+
+  end
 
   def set_order
     @furniture_order = Order.furniture.find(params[:id])

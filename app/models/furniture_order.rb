@@ -6,9 +6,9 @@ class FurnitureOrder < Order
     @furniture_orders = Order.furniture.where(status: status).order(created_at: :asc)
 
     CSV.generate do |csv|
-      csv << ['Numer', 'Opis', 'Zamawiający', 'Data utworzenia', 'Na kiedy ma być', 'Ilość', 'Cena', 'Potwierdzenie daty zlecenia', 'Data realizacji', 'Numer WZ']
+      csv << ['Numer', 'Opis', 'Zamawiający', 'Data utworzenia', 'Na kiedy ma być', 'Ilość', 'Koszty', 'Cena', 'Zysk', 'Nabywca', 'Potwierdzenie daty zlecenia', 'Data realizacji', 'Numer WZ']
       @furniture_orders.each do |order|
-        csv << [order.number, order.description, "#{order.user.first_name} #{order.user.last_name}", date(order.created_at), date(order.delivery_request_date), order.quantity, order.price, date(order.confirmation_date), date(order.delivery_date), order.try(:wz).try(:number)]
+        csv << [order.number, order.description, "#{order.user.first_name} #{order.user.last_name}", date(order.created_at), date(order.delivery_request_date), order.quantity, order.expense, order.price, order.price.to_f.to_d - order.expense.to_f.to_d, order.purchaser, date(order.confirmation_date), date(order.delivery_date), order.try(:wz).try(:number)]
       end
     end
   end

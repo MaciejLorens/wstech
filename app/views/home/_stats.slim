@@ -12,11 +12,21 @@ table.table.table-hover.dashboard-table
 
   tbody
     tr
-      - expenses = orders.furniture.map(&:expense).compact.map(&:to_d).sum
-      - prices = orders.furniture.map(&:price).compact.map(&:to_d).sum
+      - expenses = orders.furniture.wsk.map(&:expense).compact.map(&:to_d).sum
+      - prices = orders.furniture.wsk.map(&:price).compact.map(&:to_d).sum
       - profit = prices - expenses
-      td Stolarnia
-      td = orders.furniture.count
+      td Stolarnia (WSK)
+      td = orders.furniture.wsk.count
+      td = expenses
+      td = prices
+      td = profit
+      td = prices.zero? ? 0 : "#{(profit  * 100 / prices).round(2)}%"
+    tr
+      - expenses = orders.furniture.diff.map(&:expense).compact.map(&:to_d).sum
+      - prices = orders.furniture.diff.map(&:price).compact.map(&:to_d).sum
+      - profit = prices - expenses
+      td Stolarnia (Inne)
+      td = orders.furniture.diff.count
       td = expenses
       td = prices
       td = profit

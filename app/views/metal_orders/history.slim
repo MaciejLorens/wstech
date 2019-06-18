@@ -13,6 +13,7 @@ table.table.table-hover
     th Koszty
     th Cena
     th Zysk
+    th Nabywca
     th Zdjęcia
     th Potwierdzenie daty zlecenia
     th Data realizacji
@@ -34,6 +35,7 @@ table.table.table-hover
       td = @metal_order.expense
       td = @metal_order.price
       td = @metal_order.price.to_f.to_d - @metal_order.expense.to_f.to_d
+      td = @metal_order.purchaser
       td
         - @metal_order.resources.each do |resource|
           - if resource.image.present?
@@ -62,6 +64,7 @@ table.table.table-hover
           td = order.expense
           td = order.price
           td = order.price.to_f.to_d - order.expense.to_f.to_d
+          td = order.purchaser
           td
             - order.resources.each_with_index do |resource, index|
               - if resource.image.present?

@@ -10,6 +10,9 @@ class Order < ActiveRecord::Base
   scope :metal, -> () { where(type: 'MetalOrder')}
   scope :furniture, -> () { where(type: 'FurnitureOrder')}
 
+  scope :wsk, -> () { where(purchaser: 'WSK') }
+  scope :diff, -> () { where(purchaser: 'Inne') }
+
   accepts_nested_attributes_for :resources
 
   validates_presence_of :description, :user_id, :quantity, :delivery_request_date, :status, :type
