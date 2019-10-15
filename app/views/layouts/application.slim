@@ -22,10 +22,11 @@ html lang="en"
     = render partial: 'shared/navbar'
     .main-content.container-fluid
       .row
-        .search-results
-        .col-sm-12.main-body
-          = bootstrap_flash
-          = yield
+        .col-sm-12
+          .search-results
+          .main-body
+            = bootstrap_flash
+            = yield
 
       footer
         p

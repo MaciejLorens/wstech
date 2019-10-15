@@ -59,7 +59,7 @@
           li= link_to 'Lista', wzs_path
 
     ul.nav.navbar-nav.pull-right
-      = text_field_tag :search_tag, '', placeholder: 'Szukaj w opisie', class: 'search_tag form-control'
+      = text_field_tag :search_tag, '', placeholder: 'Szukaj w opisie / numerze', class: 'search_tag form-control'
       - if user_signed_in?
         | #{current_user.first_name} #{current_user.last_name} &nbsp&nbsp
         = link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn'

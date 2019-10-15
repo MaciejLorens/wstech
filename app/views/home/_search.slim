@@ -1,5 +1,5 @@
 h3
-  | Wyniki wyszukania klucza
+  | Wyniki wyszukania klucza:&nbsp;
   span
     = params[:query]
   .pull-right
@@ -7,46 +7,49 @@ h3
   br
   br
 
-table.table.table-hover
-  tr
-    th Numer zamówienia
-    th Opis
-    th Zamawiający
-    th Data utworzenia
-    th Na kiedy ma być
-    th Ilość / łącznie w WZ
-    th Cena
-    th Zdjęcia
-    th Potwierdzenie daty zlecenia
-    th Data realizacji
-    th Status
-    th Numer WZ
-    th
+- if @orders.blank?
+  | - Brak wyników -
+- else
+  table.table.table-hover
+    tr
+      th Numer zamówienia
+      th Opis
+      th Zamawiający
+      th Data utworzenia
+      th Na kiedy ma być
+      th Ilość / łącznie w WZ
+      th Cena
+      th Zdjęcia
+      th Potwierdzenie daty zlecenia
+      th Data realizacji
+      th Status
+      th Numer WZ
+      th
 
-  tbody
-    - @orders.each do |order|
-      tr
-        td = order.number
-        td = order.description
-        td = "#{order.user.first_name} #{order.user.last_name}"
-        td = date(order.created_at)
-        td = date(order.delivery_request_date)
-        td = "#{order.quantity} / <span class='quantity_in_wz'>#{order.quantity_in_wz}</span>".html_safe
-        td = order.price
-        td
-          - order.resources.each_with_index do |resource, index|
-            - if resource.image.present?
-              = link_to image_tag(resource.image(:thumb)), resource.image.url
-        td = date(order.confirmation_date)
-        td = date(order.delivery_date)
-        td = status(order)
-        td
-          - order.wzs.each do |wz|
-            = link_to(wz.number, wz_path(wz))
-        td
-          = link_to 'Edytuj', order.type == 'FurnitureOrder' ? edit_furniture_order_path(order) : edit_metal_order_path(order)
-          br
-          - if current_user.admin?
-            = link_to 'Historia', order.type == 'FurnitureOrder' ? history_furniture_order_path(order) : history_metal_order_path(order)
+    tbody
+      - @orders.each do |order|
+        tr
+          td = order.number
+          td = order.description
+          td = "#{order.user.first_name} #{order.user.last_name}"
+          td = date(order.created_at)
+          td = date(order.delivery_request_date)
+          td = "#{order.quantity} / <span class='quantity_in_wz'>#{order.quantity_in_wz}</span>".html_safe
+          td = order.price
+          td
+            - order.resources.each_with_index do |resource, index|
+              - if resource.image.present?
+                = link_to image_tag(resource.image(:thumb)), resource.image.url
+          td = date(order.confirmation_date)
+          td = date(order.delivery_date)
+          td = status(order)
+          td
+            - order.wzs.each do |wz|
+              = link_to(wz.number, wz_path(wz))
+          td
+            = link_to 'Edytuj', order.type == 'FurnitureOrder' ? edit_furniture_order_path(order) : edit_metal_order_path(order)
             br
-          = link_to 'Usuń', order.type == 'FurnitureOrder' ? furniture_order_path(order) : metal_order_path(order), data: {confirm: 'Usunąć zamówienie?'}, method: :delete
+            - if current_user.admin?
+              = link_to 'Historia', order.type == 'FurnitureOrder' ? history_furniture_order_path(order) : history_metal_order_path(order)
+              br
+            = link_to 'Usuń', order.type == 'FurnitureOrder' ? furniture_order_path(order) : metal_order_path(order), data: {confirm: 'Usunąć zamówienie?'}, method: :delete
