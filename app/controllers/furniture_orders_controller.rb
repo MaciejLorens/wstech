@@ -17,6 +17,10 @@ class FurnitureOrdersController < ApplicationController
     @furniture_order = Order.furniture.where(status: 'ordered').order(created_at: :desc)
   end
 
+  def fv_without_delivery
+    @furniture_order = Order.furniture.where(status: 'fv_without_delivery').order(created_at: :desc)
+  end
+
   def delivered_without_wz
     @furniture_order = Order.furniture
                          .includes(:resources, :user, :wzs)

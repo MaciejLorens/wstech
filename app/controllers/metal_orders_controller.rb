@@ -17,6 +17,10 @@ class MetalOrdersController < ApplicationController
     @metal_order = Order.metal.where(status: 'ordered').order(created_at: :desc)
   end
 
+  def fv_without_delivery
+    @metal_order = Order.metal.where(status: 'fv_without_delivery').order(created_at: :desc)
+  end
+
   def delivered_without_wz
     @metal_order = Order.metal
                      .includes(:resources, :user, :wzs)

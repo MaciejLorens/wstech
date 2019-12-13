@@ -1,7 +1,7 @@
 h3
-  | Zamówienia stolarnia - zamówione
+  | Zamówienia metalówka - FV bez dostawy
   .pull-right
-    = link_to 'Pobierz', download_furniture_orders_path(status: 'ordered', format: 'csv'), class: 'btn btn-default'
+    = link_to 'Pobierz', download_metal_orders_path(status: 'ordered', format: 'csv'), class: 'btn btn-default'
     = link_to 'Wydrukuj', '#', onclick: 'window.print()', class: 'btn btn-default', style: 'margin-left: 20px'
 
 table.table.table-hover
@@ -24,7 +24,7 @@ table.table.table-hover
     th
 
   tbody
-    - @furniture_order.each do |order|
+    - @metal_order.each do |order|
       tr
         td = order.number
         td = order.description
@@ -47,27 +47,28 @@ table.table.table-hover
         td
           - if current_user.admin?
             = link_to 'Edytuj',
-                edit_furniture_order_path(order),
+                edit_metal_order_path(order),
                 class: 'btn btn-default btn-sm'
             br
             - if current_user.admin?
               - if order.price.present? && order.expense.present? && order.purchaser.present?
                 = link_to 'Zakończ<br>zlecenie'.html_safe,
-                    furniture_order_path(order, referer: ordered_furniture_orders_path, furniture_order: {status: 'delivered', delivery_date: Time.now}),
+                    metal_order_path(order, referer: ordered_metal_orders_path, metal_order: {status: 'delivered', delivery_date: Time.now}),
                     class: 'btn btn-default btn-sm',
                     data: {confirm: 'Zakończyć zlecenie?'},
                     method: :patch
               - else
                 = link_to 'Uzupełnij<br>aby zakończyć'.html_safe,
-                    edit_furniture_order_path(order),
+                    edit_metal_order_path(order),
                     class: 'btn btn-default btn-sm',
                     data: { confirm: 'Uzupełnij cenę, koszty i zamawiającego aby zakończyć zlecenie' }
               br
               = link_to 'Historia',
-                  history_furniture_order_path(order),
+                  history_metal_order_path(order),
                   class: 'btn btn-default btn-sm'
               br
             = link_to 'Usuń',
-                furniture_order_path(order),
+                metal_order_path(order),
                 class: 'btn btn-default btn-sm',
-                data: {confirm: 'Usunąć zamówienie?'}, method: :delete
+                data: {confirm: 'Usunąć zamówienie?'},
+                method: :delete
