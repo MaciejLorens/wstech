@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     get :proposition, on: :collection
     get :not_confirmed, on: :collection
     get :ordered, on: :collection
-    get :fv_without_delivery, on: :collection
     get :delivered_without_wz, on: :collection
     get :delivered_with_wz, on: :collection
     get :deleted, on: :collection
@@ -28,7 +27,6 @@ Rails.application.routes.draw do
     get :proposition, on: :collection
     get :not_confirmed, on: :collection
     get :ordered, on: :collection
-    get :fv_without_delivery, on: :collection
     get :delivered_without_wz, on: :collection
     get :delivered_with_wz, on: :collection
     get :deleted, on: :collection

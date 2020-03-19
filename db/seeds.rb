@@ -4,8 +4,6 @@ tomek = User.create(first_name: 'Tomasz', last_name: 'Somer', email: 'tomasz@som
 
 client = User.create(first_name: 'Franek', last_name: 'Golas', email: 'franek@golas.fm', password: '1234567890', admin: false)
 
-
-
 200.times do
   Order.create(
     type: %w(MetalOrder FurnitureOrder).sample,

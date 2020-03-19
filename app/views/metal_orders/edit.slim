@@ -43,7 +43,7 @@ h3
         = f.text_field :delivery_date, value: date(@metal_order.delivery_date), class: 'datepicker form-control', placeholder: 7.days.from_now.strftime('%d-%m-%Y')
       .form-group.col-md-4
         = f.label :status
-        = f.select :status, options_for_select([['Zapytanie', 'inquiry'], ['Oferta', 'proposition'], ['Niezatwierdzone', 'not_confirmed'], ['Zamówione', 'ordered'], ['FV bez dostawy', 'fv_without_delivery'], ['Zrealizowane', 'delivered']], @metal_order.status), {}, {class: 'form-control'}
+        = f.select :status, options_for_select([['Zapytanie', 'inquiry'], ['Oferta', 'proposition'], ['Niezatwierdzone', 'not_confirmed'], ['Zamówione', 'ordered'], ['Zrealizowane', 'delivered']], @metal_order.status), {}, {class: 'form-control'}
 
   .row
     .form-group.col-md-4
